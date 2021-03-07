@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="../jspsych.js"></script>
+    <script src="../plugins/jspsych-html-keyboard-response.js"></script>
+    <script src="../plugins/jspsych-survey-text.js"></script>
+    <script src="../plugins/jspsych-survey-multi-choice.js"></script>
+    <link rel="stylesheet" href="../css/jspsych.css"></link>
+</head>
+<body></body>
+<script>
+
+var trial_types2=[
+        {letter:'G',pos:'center',cond:'go',iti:500},
+        {letter:'G',pos:'center',cond:'go',iti:1000},
+        {letter:'N',pos:'center',cond:'nogo',iti:1500},
+        {letter:'N',pos:'center',cond:'nogo',iti:2000},
+    ];
+
+    var feedback_types1=[
+        {letter:'すごい！',pos:'center',cond:'good'},
+        {letter:'天才だ！',pos:'center',cond:'good'},
+        {letter:'やったね！',pos:'center',cond:'good'},
+        {letter:'その調子！',pos:'center',cond:'good'}
+    ];
+
+    var trial2={
+        type:'html-keyboard-response',
+        stimulus:function(){
+            return '<div class="text_' + jsPsych.timelineVariable('pos', true) + '">' + jsPsych.timelineVariable('letter', true) + '</div>'
+        },
+        choices:['g'],
+        trial_duration:1000,
+        post_trial_gap:jsPsych.timelineVariable('iti'),
+        data:{
+            letter:jsPsych.timelineVariable('letter'),
+            pos:jsPsych.timelineVariable('pos'),
+            cond:jsPsych.timelineVariable('cond')
+        },
+        on_finish:function(data){
+            data.key=jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press)
+            if(data.letter=='G'){
+                data.correct=Number(data.key=='g')
+            }else{
+                if(data.key=='g'){
+                    data.correct=0
+                }else{
+                    data.correct=1
+                }
+            }
+        }
+    }
+
+    var feedback1={
+        type:'html-keyboard-response',
+        stimulus:function(){
+            return '<div class="text_' + jsPsych.timelineVariable('pos', true) + '">' + jsPsych.timelineVariable('letter', true) + '</div>'
+        },
+        choices:jsPsych.NO_KEYS,
+        trial_duration:1000,
+        post_trial_gap:1000,
+    }
+
+    trial_types2_main=jsPsych.randomization.repeat(trial_types2,1);
+    feedback_types1=jsPsych.randomization.repeat(feedback_types1,1);
+
+    var gn3_main={
+    timeline_variables:trial_types2_main,
+    timeline:[trial2],
+}
+
+    var feedback_main={
+    timeline_variables:feedback_types1,
+    timeline:[feedback1],
+}
+
+var arr1 = [gn3_main.timeline],
+      arr2 = [feedback_main.timeline];
+
+      var main3 = [];
+
+arr1.forEach(v1 => {
+  arr2.forEach(v2 => {
+      var group=[].concat(v1, v2); 
+      main3.push(group);
+  });
+});
+
+
+jsPsych.init({
+    timeline:[main3],
+    on_finish: function() {
+      jsPsych.data.displayData();
+    },
+    default_iti: 250
+  });
+
+
+</script>
+</html>

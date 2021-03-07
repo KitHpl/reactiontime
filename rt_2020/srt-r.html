@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="../jspsych.js"></script>
+  <script src="../plugins/jspsych-html-keyboard-response.js"></script>
+  <script src="../plugins/jspsych-survey-text.js"></script>
+  <script src="../plugins/jspsych-survey-multi-choice.js"></script>
+  <link rel="stylesheet" href="../css/jspsych.css"></link>
+  <style>
+    .text_left {
+      position: absolute;
+      left: 40%;
+      top: 50%;
+      transform: translateY(-50%) translateX(-50%);
+      -webkit-transform: translateY(-50%) translateX(-50%);
+    }
+    .text_right {
+      position: absolute;
+      right: 40%;
+      top: 50%;
+      transform: translateY(-50%) translateX(50%);
+      -webkit-transform: translateY(-50%) translateX(50%);
+    }
+  </style>
+</head>
+<body></body>
+<script>
+
+  // 参加者情報の取得
+  var par_info = {};
+
+  var par_id = {
+    type: 'survey-text',
+    questions: [
+      {prompt: '学生番号を入力してください', columns: 10, required: true, name: 'participantID'},
+    ],
+    button_label: '次へ',
+    on_finish: function(data) {
+      par_info.id = JSON.parse(data.responses).participantID // 一時保存
+    }
+  };
+
+
+  // 教示
+  var instruction = {
+    type: 'html-keyboard-response',
+    stimulus: 'これからキー押し課題をおこないます。<br>' +
+              '画面中央に「C」が表示されるので，<br><br>' +
+              '右手人差し指で j キー<br>'+
+              'を押してください。<br>' +
+              '準備ができたらいずれかのキーを押して課題を始めてください。',
+  }
+
+  var go_practice = {
+    type: 'html-keyboard-response',
+    stimulus: 'まず課題の練習をおこないます。<br>' +
+              '右手の人差指を j キーの上においてください。<br><br>' +
+              '準備ができたらいずれかのキーを押して課題を始めてください。',
+    post_trial_gap: 1000
+  }
+
+  var go_main = {
+    type: 'html-keyboard-response',
+    stimulus: 'これから本計測をおこないます。<br>' +
+              '右手の人差指を j キーの上においてください。<br><br>' +
+              '準備ができたらいずれかのキーを押して課題を始めてください。',
+    post_trial_gap: 1000
+  }
+
+
+  // 注視点
+  var fixation = {
+    type: 'html-keyboard-response',
+    stimulus: "+",
+    choices: jsPsych.NO_KEYS,
+    trial_duration: 1000,
+    post_trial_gap: 1000,
+  }
+
+
+  // 単純反応課題
+  var trial_types = [
+    {letter: 'C', pos: 'center', cond: 'srt-r'},
+  ];
+
+  var trial = {
+    type: 'html-keyboard-response',
+    stimulus: function() {
+      return '<div class="text_' + jsPsych.timelineVariable('pos', true) + '">' + jsPsych.timelineVariable('letter', true) + '</div>'
+    },
+    choices: ['j'],
+    trial_duration: 1000,
+    post_trial_gap: 1000, // ITI
+    data: {
+      letter: jsPsych.timelineVariable('letter'),
+      pos: jsPsych.timelineVariable('pos'),
+      cond: jsPsych.timelineVariable('cond')
+    },
+    on_finish: function(data) {
+      data.key = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press)
+      data.correct = Number(data.key == 'j')
+    }
+  }
+
+  trial_types_practice = jsPsych.randomization.repeat(trial_types, 5);
+  trial_types_main = jsPsych.randomization.repeat(trial_types, 15);
+
+  // それぞれをtimeline_variablesに指定したブロックを作成する
+  var simon_practice = {
+    timeline_variables: trial_types_practice,
+    timeline:[trial]
+  }
+  var simon_main = {
+    timeline_variables: trial_types_main,
+    timeline: [trial],
+  }
+
+  jsPsych.init({
+    timeline: [par_id, instruction, go_practice, fixation, simon_practice, go_main, fixation, simon_main],
+    on_finish: function() {
+      jsPsych.data.addProperties(par_info);
+      jsPsych.data.get().localSave('csv', 'data_srt_right_A_XXXX.csv');
+    },
+  });
+</script>
+
+</html>

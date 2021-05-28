@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="../jspsych.js"></script>
+    <script src="../plugins/jspsych-html-keyboard-response.js"></script>
+    <script src="../plugins/jspsych-survey-text.js"></script>
+    <script src="../plugins/jspsych-survey-multi-choice.js"></script>
+    <link rel="stylesheet" href="../css/jspsych.css"></link>
+</head>
+<body></body>
+<script>
+    var par_info={};
+
+    var par_dep={
+        type: 'survey-multi-choice',
+        questions:[
+            {prompt:"所属する学域を選択してください。", 
+            options: ['応用生物学域', '物質・材料科学域','設計工学域','デザイン科学域','繊維学域'], 
+            required: true, 
+            horizontal: true,
+            name: 'department'},
+        ],
+        button_label:'次へ',
+        on_finish:function(data){
+            par_info.dep=JSON.parse(data.responses).department
+        }
+    };
+
+    var par_id={
+        type: 'survey-text',
+        questions:[
+            {prompt:"学生番号を入力してください。", 
+            columns:10, 
+            required: true, 
+            horizontal: true,
+            name: 'participantid'},
+        ],
+        button_label:'次へ',
+        on_finish:function(data){
+            par_info.id=JSON.parse(data.responses).participantid
+        }
+    };
+
+    var par_name={
+        type: 'survey-text',
+        questions:[
+            {prompt:"学生番号を入力してください。", 
+            columns:10, 
+            required: true, 
+            horizontal: true,
+            name: 'participantname'},
+        ],
+        button_label:'次へ',
+        on_finish:function(data){
+            par_info.name=JSON.parse(data.responses).participantname
+        }
+    };
+
+    var par_number={
+        type: 'survey-text',
+        questions:[
+            {prompt:"学生番号を入力してください。", 
+            columns:10, 
+            required: true, 
+            horizontal: true,
+            name: 'participantname'},
+        ],
+        button_label:'次へ',
+        on_finish:function(data){
+            par_info.number=JSON.parse(data.responses).participantnubmer
+        }
+    };
+
+    var que_ins={
+        type:'html-keyboard-response',
+        stimulus:'これからあなた自身のことについていくつか質問します。<br>'+
+                 '最も当てはまるものを選んでください。<br><br>'+
+                 '準備が出来たらいずれかのキーを押して始めてください。'
+
+    }
+
+    var par_sports_type1={
+        type: 'survey-text',
+        questions:[
+            {prompt:"スポーツの経験についてお聞きします。<br>"+
+                "部活や外クラブ等で経験したことのあるスポーツ名を記入してください。" +
+                "<br> 複数ある場合は1番経験年数の長いものを記入してください。また、ない場合は「なし」と記入してください。", 
+            columns:30, 
+            required: true, 
+            horizontal: true,
+            name: 'sports1'},
+        ],
+        button_label:'次へ',
+        on_finish:function(data){
+            par_info.sports1=JSON.parse(data.responses).sports1
+        }
+    };
+
+    var par_sports_years={
+        type: 'survey-multi-choice',
+        questions:[
+            {prompt:"記入したスポーツの経験年数を選んでください。", 
+            options: ['0ヶ月以上1ヶ月未満', '1か月以上1年未満','1年以上3年未満','3年以上10年未満','10年以上'], 
+            required: true, 
+            horizontal: true,
+            name: 'years'},
+        ],
+        button_label:'次へ',
+        on_finish:function(data){
+            par_info.years=JSON.parse(data.responses).years
+        }
+    };
+
+    var par_sports_type2={
+        type: 'survey-text',
+        questions:[
+            {prompt:"経験スポーツが複数ある場合、そのすべてを記入してください。" +
+            "<br> ない場合は「なし」と記入してください。", 
+            columns:30, 
+            required: true, 
+            horizontal: true,
+            name: 'sports2'},
+        ],
+        button_label:'次へ',
+        on_finish:function(data){
+            par_info.sports2=JSON.parse(data.responses).sports2
+        }
+    };
+    
+    var par_game_time1={
+        type: 'survey-multi-choice',
+        questions:[
+            {prompt:"普段のビデオゲームプレイ時間についてお聞きします。<br>"+
+                "主にコントローラーを介して操作するゲーム(PCのキーボード含む)のプレイ時間を教えてください。", 
+            options: ['プレイしたことがない・ほとんどプレイしない', '1ヶ月に5時間程度','1週間に5時間程度','毎日2時間程度','毎日5時間以上'], 
+            required: true, 
+            horizontal: true,
+            name: 'gametime1'},
+        ],
+        button_label:'次へ',
+        on_finish:function(data){
+            par_info.gametime1=JSON.parse(data.responses).gametime1
+        }
+    };
+
+    var par_game_time2={
+        type: 'survey-multi-choice',
+        questions:[
+            {prompt:"主に画面をタッチして操作するゲームのプレイ時間を教えてください。", 
+            options: ['プレイしたことがない・ほとんどプレイしない', '1ヶ月に5時間程度','1週間に5時間程度','毎日2時間程度','毎日5時間以上'], 
+            required: true, 
+            horizontal: true,
+            name: 'gametime2'},
+        ],
+        button_label:'次へ',
+        on_finish:function(data){
+            par_info.gametime2=JSON.parse(data.responses).gametime2
+        }
+    };
+
+    var par_nurv1={
+        type: 'survey-multi-choice',
+        questions:[
+            {prompt:"心理的なタイプについてお聞きします。<br>"+
+                "あなたは大人数の前で発表するときや、失敗できないシーンで緊張しますか？", 
+            options: ['全く緊張しない', '少し緊張する','まぁまぁ緊張する','かなり緊張する'], 
+            required: true, 
+            horizontal: true,
+            name: 'nurv1'},
+        ],
+        button_label:'次へ',
+        on_finish:function(data){
+            par_info.nurv1=JSON.parse(data.responses).nurv1
+        }
+    };
+
+    var prac_ins={
+        type:'html-keyboard-response',
+        stimulus:'質問は以上です。<br><br><br>'+
+                 'これからキー押し課題を行います。<br>'+
+                 '画面中央に「G」「N」がランダムに表示されるので、<br><be>'+
+                 '「G」が表示されたら利き手の人差し指でgキーを押してください。<br>'+
+                 '「N」が表示されたらなにも押さないで下さい。<br><br>'+
+                 '準備が出来たらキーを押してください。練習が始まります。',
+        post_trial_gap:1000
+
+    }
+
+    var trial_ins1={
+        type:'html-keyboard-response',
+        stimulus:'それでは、本計測を行います。計測は全部で5ブロックあります。<br>'+
+                 'リラックスした状態で始め、キーを押すとき以外は指の力を抜きましょう。<br><br>'+
+                 '利き手の人差し指をgのキーに置き、準備が出来たらキーを押してください。計測が始まります。',
+        post_trial_gap:1000
+    }
+
+    var trial_ins2={
+        type:'html-keyboard-response',
+        stimulus:'一つ目のブロックはこれで終わりです。<br><br>'+
+                 '次のブロックは、常にキーを押すつもりで指に力を入れ、構えてください。<br>'+
+                 'ただし、やることは変わりません。「G」が出たら押し、「N」が出たら押さないで下さい。<br><br>'+
+                 '利き手の人差し指をgのキーに置き、準備が出来たらキーを押してください。計測が始まります。',
+        post_trial_gap:1000
+    }
+
+    var par_nurv2={
+        type: 'survey-multi-choice',
+        questions:[
+            {prompt:"二つ目のブロックはこれで終わりです。三つ目のブロックに進む前にアンケートにお答え下さい。<br>"+
+                "リラックスしていた一つ目のブロックを1とすると、二つ目のブロックではどれくらい緊張しましたか？", 
+            options: ['0', '1','2','3','4','5','6','7','8','9','10'], 
+            required: true, 
+            horizontal: true,
+            name: 'nurv1'},
+        ],
+        button_label:'次へ',
+        on_finish:function(data){
+            par_info.nurv1=JSON.parse(data.responses).nurv1
+        }
+    };
+
+    var trial_ins3={
+        type:'html-keyboard-response',
+        stimulus:'次のブロックは、難易度が上がります。<br>'+
+                 'ただし、やることは変わりません。「G」が出たら押し、「N」が出たら押さないで下さい。<br><br>'+
+                 '利き手の人差し指をgのキーに置き、準備が出来たらキーを押してください。計測が始まります。',
+        post_trial_gap:1000
+    }
+
+    var par_nurv3={
+        type: 'survey-multi-choice',
+        questions:[
+            {prompt:"三つ目のブロックはこれで終わりです。四つ目のブロックに進む前にアンケートにお答え下さい。<br>"+
+                "リラックスしていた一つ目のブロックを1とすると、三つ目のブロックではどれくらい緊張しましたか？", 
+            options: ['0', '1','2','3','4','5','6','7','8','9','10'], 
+            required: true, 
+            horizontal: true,
+            name: 'nurv1'},
+        ],
+        button_label:'次へ',
+        on_finish:function(data){
+            par_info.nurv1=JSON.parse(data.responses).nurv1
+        }
+    };
+
+    var trial_ins4={
+        type:'html-keyboard-response',
+        stimulus:'次のブロックでもやることは変わりません。「G」が出たら押し、「N」が出たら押さないで下さい。<br>'+
+                 'ただし、次のブロックで8割以上正しくキーを押した方の中から、キー押しが早かった順に3名まで賞金が出ます。<br><br>'+
+                 '利き手の人差し指をgのキーに置き、準備が出来たらキーを押してください。計測が始まります。',
+        post_trial_gap:1000
+    }
+
+    var par_nurv4={
+        type: 'survey-multi-choice',
+        questions:[
+            {prompt:"四つ目のブロックはこれで終わりです。五つ目のブロックに進む前にアンケートにお答え下さい。<br>"+
+                "リラックスしていた一つ目のブロックを1とすると、四つ目のブロックではどれくらい緊張しましたか？", 
+            options: ['0', '1','2','3','4','5','6','7','8','9','10'], 
+            required: true, 
+            horizontal: true,
+            name: 'nurv1'},
+        ],
+        button_label:'次へ',
+        on_finish:function(data){
+            par_info.nurv1=JSON.parse(data.responses).nurv1
+        }
+    };
+
+    var trial_ins5={
+        type:'html-keyboard-response',
+        stimulus:'次のブロックで最後です。同様に「G」が出たら押し、「N」が出たら押さないで下さい。<br>'+
+                 'ただし、次のブロックで8割以上正解出来なければ、最初からやり直しになります。<br><br>'+
+                 '利き手の人差し指をgのキーに置き、準備が出来たらキーを押してください。計測が始まります。',
+        post_trial_gap:1000
+    }
+
+    var par_nurv5={
+        type: 'survey-multi-choice',
+        questions:[
+            {prompt:"これで全てのブロックが終わりました。最後にアンケートにお答え下さい。<br>"+
+                "リラックスしていた一つ目のブロックを1とすると、五つ目のブロックではどれくらい緊張しましたか？", 
+            options: ['0', '1','2','3','4','5','6','7','8','9','10'], 
+            required: true, 
+            horizontal: true,
+            name: 'nurv1'},
+        ],
+        button_label:'次へ',
+        on_finish:function(data){
+            par_info.nurv1=JSON.parse(data.responses).nurv1
+        }
+    };
+
+    var finish={
+        type:'html-keyboard-response',
+        stimulus:'これで課題は終わりです。お疲れさまでした。ご協力ありがとうございました。<br><br>'+
+                 '今回ご提供頂いた情報は、研究以外の目的には使用しません。<br><br>'+
+                 'ご意見などございましたら、応用生物学課程4回生、中村響(b8141031@edu.kit.ac.jp)までご連絡下さい。',
+        post_trial_gap:1000
+    }
+
+    var fixation={
+        type:'html-keyboard-response',
+        stimulus:"+",
+        choices:jsPsych.NO_KEYS,
+        trial_duration:1000,
+        post_trial_gap:1000,
+    }
+
+    var trial_types1=[
+        {letter:'G',pos:'center',cond:'go'},
+        {letter:'N',pos:'center',cond:'nogo'},
+    ];
+
+    var trial1={
+        type:'html-keyboard-response',
+        stimulus:function(){
+            return '<div class="text_' + jsPsych.timelineVariable('pos', true) + '">' + jsPsych.timelineVariable('letter', true) + '</div>'
+        },
+        choices:['g'],
+        trial_duration:1000,
+        post_trial_gap:1000,
+        data:{
+            letter:jsPsych.timelineVariable('letter'),
+            pos:jsPsych.timelineVariable('pos'),
+            cond:jsPsych.timelineVariable('cond')
+        },
+        on_finish:function(data){
+            data.key=jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press)
+            if(data.letter=='G'){
+                data.correct=Number(data.key=='g')
+            }else{
+                if(data.key=='g'){
+                    data.correct=0
+                }else{
+                    data.correct=1
+                }
+            }
+        }
+    }
+
+    var trial_types2=[
+        {letter:'G',pos:'center',cond:'go',iti:500},
+        {letter:'G',pos:'center',cond:'go',iti:1000},
+        {letter:'N',pos:'center',cond:'nogo',iti:1500},
+        {letter:'N',pos:'center',cond:'nogo',iti:2000},
+    ];
+
+    var trial2={
+        type:'html-keyboard-response',
+        stimulus:function(){
+            return '<div class="text_' + jsPsych.timelineVariable('pos', true) + '">' + jsPsych.timelineVariable('letter', true) + '</div>'
+        },
+        choices:['g'],
+        trial_duration:1000,
+        post_trial_gap:jsPsych.timelineVariable('iti'),
+        data:{
+            letter:jsPsych.timelineVariable('letter'),
+            pos:jsPsych.timelineVariable('pos'),
+            cond:jsPsych.timelineVariable('cond')
+        },
+        on_finish:function(data){
+            data.key=jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press)
+            if(data.letter=='G'){
+                data.correct=Number(data.key=='g')
+            }else{
+                if(data.key=='g'){
+                    data.correct=0
+                }else{
+                    data.correct=1
+                }
+            }
+        }
+    }
+    
+    trial_types_practice=jsPsych.randomization.repeat(trial_types1,2);
+    trial_types1_main=jsPsych.randomization.repeat(trial_types1,4);
+    trial_types2_main=jsPsych.randomization.repeat(trial_types2,2);
+
+    var gn_practice={
+    timeline_variables:trial_types_practice,
+    timeline:[trial1],
+}
+
+    var gn1_main={
+    timeline_variables:trial_types1_main,
+    timeline:[trial1],
+}
+
+    var gn2_main={
+    timeline_variables:trial_types2_main,
+    timeline:[trial2],
+}
+
+    jsPsych.init({timeline:[par_dep,par_id,que_ins,par_sports_type1,par_sports_years,par_sports_type2,par_game_time1,par_game_time2,par_nurv1,
+                            prac_ins,fixation,gn_practice,trial_ins1,fixation,gn1_main,trial_ins2,fixation,gn1_main,
+                            par_nurv2,trial_ins3,fixation,gn2_main,par_nurv3,trial_ins4,fixation,gn2_main,
+                            par_nurv4,trial_ins5,fixation,gn2_main,par_nurv5,finish],
+    on_finish:function(){
+        jsPsych.data.addProperties(par_info);
+        jsPsych.data.get().localSave('csv','data.csv');
+    },
+    });
+</script>
+</html>

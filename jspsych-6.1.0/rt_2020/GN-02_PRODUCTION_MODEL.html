@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<style>
+        .text {
+        font-size: 50px;
+    }
+        .fixation{
+        font-size: 30px;
+    }
+</style>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="../jspsych.js"></script>
+    <script src="../plugins/jspsych-html-keyboard-response.js"></script>
+    <script src="../plugins/jspsych-survey-text.js"></script>
+    <script src="../plugins/jspsych-survey-multi-choice.js"></script>
+    <link rel="stylesheet" href="../css/jspsych.css"></link>
+</head>
+<body></body>
+
+<script>
+        var par_info={};
+
+var par_dep={
+    type: 'survey-multi-choice',
+    questions:[
+        {prompt:"所属する学域を選択してください。", 
+        options: ['応用生物学域', '物質・材料科学域','設計工学域','デザイン科学域','繊維学域'], 
+        required: true, 
+        horizontal: true,
+        name: 'department'},
+    ],
+    button_label:'次へ',
+    on_finish:function(data){
+        par_info.dep=JSON.parse(data.responses).department
+    }
+};
+
+var par_id={
+    type: 'survey-text',
+    questions:[
+        {prompt:"学生番号を入力してください。", 
+        columns:10, 
+        required: true, 
+        horizontal: true,
+        name: 'participantid'},
+    ],
+    button_label:'次へ',
+    on_finish:function(data){
+        par_info.id=JSON.parse(data.responses).participantid
+    }
+};
+
+var par_name={
+    type: 'survey-text',
+    questions:[
+        {prompt:"お名前を入力してください。", 
+        columns:10, 
+        required: true, 
+        horizontal: true,
+        name: 'participantname'},
+    ],
+    button_label:'次へ',
+    on_finish:function(data){
+        par_info.name=JSON.parse(data.responses).participantname
+    }
+};
+
+var par_year={
+    type: 'survey-text',
+    questions:[
+        {prompt:"年齢を入力してください。", 
+        columns:10, 
+        required: true, 
+        horizontal: true,
+        name: 'participantname'},
+    ],
+    button_label:'次へ',
+    on_finish:function(data){
+        par_info.year=JSON.parse(data.responses).participantyear
+    }
+};
+
+var prac_ins={
+        type:'html-keyboard-response',
+        stimulus:
+                 'これからキー押し課題を行います。<br>'+
+                 '画面中央に「G」「N」がランダムに表示されるので、<br><be>'+
+                 '「G」が表示されたら利き手の人差し指でgキーを押してください。<br>'+
+                 '「N」が表示されたらなにも押さないで下さい。<br><br>'+
+                 '準備が出来たらキーを押してください。練習が始まります。',
+        post_trial_gap:1000
+
+    }
+
+var trial_ins1={
+        type:'html-keyboard-response',
+        stimulus:'それでは、本計測を行います。計測は全部で5ブロックあります。<br>'+
+        　　　　　'「G」が表示されたときの反応速度の目標は0.5秒以内です。<br>'+
+                 'リラックスした状態で始め、キーを押すとき以外は指の力を抜きましょう。<br><br>'+
+                 '利き手の人差し指をgのキーに置き、準備が出来たらキーを押してください。計測が始まります。',
+        post_trial_gap:1000
+    }
+
+var random1=(Math.random()*0.1)+0.5
+
+var trial_ins2={
+        type:'html-keyboard-response',
+        stimulus:'ひとつ目のブロックはこれで終わりです。<br>'+
+                 '平均反応速度は　'+random1+' 秒　でした。 ～～ネガティブな文言～～<br><br>'+
+                 '利き手の人差し指をgのキーに置き、準備が出来たらキーを押してください。計測が始まります。',
+        post_trial_gap:1000
+    }
+
+var random2=(Math.random()*0.1)+0.4
+
+var trial_ins3={
+        type:'html-keyboard-response',
+        stimulus:'ふたつ目のブロックはこれで終わりです。<br>'+
+                 '平均反応速度は　'+random2+' 秒　でした。 ～～ポジティブな文言～～<br><br>'+
+                 '利き手の人差し指をgのキーに置き、準備が出来たらキーを押してください。計測が始まります。',
+        post_trial_gap:1000
+    }
+    
+var trial_ins4={
+        type:'html-keyboard-response',
+        stimulus:'みっつ目のブロックはこれで終わりです。<br>'+
+                 '平均反応速度は　'+random2+' 秒　でした。 ～～ネガティブな文言～～<br><br>'+
+                 '利き手の人差し指をgのキーに置き、準備が出来たらキーを押してください。計測が始まります。',
+        post_trial_gap:1000
+    }   
+
+var random3=(Math.random()*0.1)+0.3
+    
+var trial_ins5={
+        type:'html-keyboard-response',
+        stimulus:'よっつ目のブロックはこれで終わりです。<br>'+
+                 '平均反応速度は '+random3+' 秒　でした。 ～～ポジティブな文言～～<br><br>'+
+                 '利き手の人差し指をgのキーに置き、準備が出来たらキーを押してください。計測が始まります。',
+        post_trial_gap:1000
+    }
+
+
+var fixation={
+        type:'html-keyboard-response',
+        stimulus:function(){
+            return '<p class="fixation">+</p>'
+        },
+        choices:jsPsych.NO_KEYS,
+        trial_duration:1000,
+        post_trial_gap:1000,
+    }
+
+var trial_types=[
+        {letter:'G',pos:'center',cond:'go',iti:500},
+        {letter:'G',pos:'center',cond:'go',iti:1000},
+        {letter:'N',pos:'center',cond:'nogo',iti:1500},
+        {letter:'N',pos:'center',cond:'nogo',iti:2000},
+    ];
+
+var trial={
+        type:'html-keyboard-response',
+        stimulus:function(){
+            return '<p class="text">' + jsPsych.timelineVariable('letter', true) + '</p>'
+        },
+        choices:['g'],
+        trial_duration:1000,
+        post_trial_gap:jsPsych.timelineVariable('iti'),
+        data:{
+            letter:jsPsych.timelineVariable('letter'),
+            pos:jsPsych.timelineVariable('pos'),
+            cond:jsPsych.timelineVariable('cond')
+        },
+        on_finish:function(data){
+            data.key=jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press)
+            if(data.letter=='G'){
+                data.correct=Number(data.key=='g')
+            }else{
+                if(data.key=='g'){
+                    data.correct=0
+                }else{
+                    data.correct=1
+                }
+            }
+        }
+    }
+
+var finish={
+        type:'html-keyboard-response',
+        stimulus:'いつつ目のブロックはこれで終わりです。<br>'+
+                 '平均反応速度は　'+random3+' 秒　でした。 <br><br>'+
+                 '続けて以下のURLにアクセス(QRコード？)し、アンケートにお答えください。',
+        post_trial_gap:1000
+    }
+
+
+    trial_types_practice=jsPsych.randomization.repeat(trial_types,1);
+    trial_types_main1=jsPsych.randomization.repeat(trial_types,1);
+    trial_types_main2=jsPsych.randomization.repeat(trial_types,1);
+    trial_types_main3=jsPsych.randomization.repeat(trial_types,1);
+    trial_types_main4=jsPsych.randomization.repeat(trial_types,1);
+    trial_types_main5=jsPsych.randomization.repeat(trial_types,1);
+
+var gn_practice={
+    timeline_variables:trial_types_practice,
+    timeline:[trial],
+}
+
+var gn_main1={
+    timeline_variables:trial_types_main1,
+    timeline:[trial],
+}
+
+var gn_main2={
+    timeline_variables:trial_types_main2,
+    timeline:[trial],
+}
+
+var gn_main3={
+    timeline_variables:trial_types_main3,
+    timeline:[trial],
+}
+
+var gn_main4={
+    timeline_variables:trial_types_main4,
+    timeline:[trial],
+}
+
+var gn_main5={
+    timeline_variables:trial_types_main5,
+    timeline:[trial],
+}
+
+
+
+
+
+jsPsych.init({timeline:[par_dep,par_id,par_name,par_year,
+                            prac_ins,fixation,gn_practice,trial_ins1,fixation,gn_main1,trial_ins2,fixation,gn_main2,
+                            trial_ins3,fixation,gn_main3,trial_ins4,fixation,gn_main4,
+                            trial_ins5,fixation,gn_main5,finish],
+    on_finish:function(){
+        jsPsych.data.addProperties(par_info);
+        jsPsych.data.get().localSave('csv','data.csv');
+    },
+    });
+</script>
+</html>

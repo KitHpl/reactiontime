@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="../jspsych.js"></script>
+    <script src="../plugins/jspsych-html-keyboard-response.js"></script>
+    <script src="../plugins/jspsych-survey-text.js"></script>
+    <script src="../plugins/jspsych-survey-multi-choice.js"></script>
+    <link rel="stylesheet" href="../css/jspsych.css"></link>
+</head>
+<body></body>
+<script>
+    var par_info={};
+
+    var par_dep={
+        type: 'survey-multi-choice',
+        questions:[
+            {prompt:"所属する学域を選択してください。", 
+            options: ['応用生物学域', '物質・材料科学域','設計工学域','デザイン科学域','繊維学域'], 
+            required: true, 
+            horizontal: true,
+            name: 'pardep'},
+        ],
+        button_label:'次へ',
+        on_finish:function(data){
+            par_info.dep=JSON.parse(data.responses).pardep
+        }
+    };
+   
+    var par_id={
+        type: 'survey-text',
+        questions:[
+            {prompt:"学生番号を入力してください。", 
+            columns:10, 
+            required: true, 
+            horizontal: true,
+            name: 'parid'},
+        ],
+        button_label:'次へ',
+        on_finish:function(data){
+            par_info.id=JSON.parse(data.responses).parid
+        }
+    };
+
+    var par_name={
+        type: 'survey-text',
+        questions:[
+            {prompt:"お名前を入力してください。", 
+            columns:10, 
+            required: true, 
+            horizontal: true,
+            name: 'parname'},
+        ],
+        button_label:'次へ',
+        on_finish:function(data){
+            par_info.name=JSON.parse(data.responses).parname
+        }
+    };
+
+    var par_age={
+        type: 'survey-text',
+        questions:[
+            {prompt:"年齢を入力してください。", 
+            columns:5, 
+            required: true, 
+            horizontal: true,
+            name: 'parage'},
+        ],
+        button_label:'次へ',
+        on_finish:function(data){
+            par_info.age=JSON.parse(data.responses).parage
+        }
+    };
+
+    var que_ins={
+        type:'html-keyboard-response',
+        stimulus:'これからあなた自身のことについていくつか質問します。<br>'+
+                 '最も当てはまるものを選んでください。<br><br>'+
+                 '準備が出来たらいずれかのキーを押して始めてください。'
+
+    };
+
+    var sports_ins={
+        type:'html-keyboard-response',
+        stimulus:'まずはじめに、スポーツの経験についてお聞きします。<br>'+
+        　　　　　'部活動や、外クラブ、サークルなど、全てのスポーツの経験を思い出してください。<br><br>'+
+                 '準備が出来たらいずれかのキーを押して始めてください。'
+
+    };
+
+    var par_sports_years1={
+        type: 'survey-multi-choice',
+        questions:[
+            {prompt:"「速さを競うスポーツ」(徒競走、競泳、スピードスケート等)で、一番長く経験したスポーツの経験年数を選んでください。", 
+            options: ['0ヶ月以上1ヶ月未満', '1か月以上1年未満','1年以上3年未満','3年以上10年未満','10年以上'], 
+            required: true, 
+            horizontal: true,
+            name: 'years1'},
+        ],
+        button_label:'次へ',
+        on_finish:function(data){
+            par_info.speedsports=JSON.parse(data.responses).years1
+        }
+    };
+
+    var par_sports_types1={
+        type: 'survey-text',
+        questions:[
+            {prompt:"次に、具体的にどのような「速さを競うスポーツ」を行っていたかを記入してください。" +
+                "<br> 複数ある場合は、経験年数の長いものから順に記入してください。ない場合は、「なし」と記入してください。", 
+            columns:30, 
+            required: true, 
+            horizontal: true,
+            name: 'types1'},
+        ],
+        button_label:'次へ',
+        on_finish:function(data){
+            par_info.speedtypes=JSON.parse(data.responses).types1
+        }
+    };
+
+    var par_sports_years2={
+        type: 'survey-multi-choice',
+        questions:[
+            {prompt:"「ベース型スポーツ」(野球、ソフトボール等)で、一番長く経験したスポーツの経験年数を選んでください。", 
+            options: ['0ヶ月以上1ヶ月未満', '1か月以上1年未満','1年以上3年未満','3年以上10年未満','10年以上'], 
+            required: true, 
+            horizontal: true,
+            name: 'years2'},
+        ],
+        button_label:'次へ',
+        on_finish:function(data){
+            par_info.basesports=JSON.parse(data.responses).years2
+        }
+    };
+
+    var par_sports_types2={
+        type: 'survey-text',
+        questions:[
+            {prompt:"次に、具体的にどのような「ベース型スポーツ」を行っていたかを記入してください。" +
+                "<br> 複数ある場合は、経験年数の長いものから順に記入してください。ない場合は、「なし」と記入してください。", 
+            columns:30, 
+            required: true, 
+            horizontal: true,
+            name: 'types2'},
+        ],
+        button_label:'次へ',
+        on_finish:function(data){
+            par_info.basetypes=JSON.parse(data.responses).types2
+        }
+    };
+
+    var par_sports_years3={
+        type: 'survey-multi-choice',
+        questions:[
+            {prompt:"「ネット型スポーツ」(テニス、卓球等)で、一番長く経験したスポーツの経験年数を選んでください。", 
+            options: ['0ヶ月以上1ヶ月未満', '1か月以上1年未満','1年以上3年未満','3年以上10年未満','10年以上'], 
+            required: true, 
+            horizontal: true,
+            name: 'years3'},
+        ],
+        button_label:'次へ',
+        on_finish:function(data){
+            par_info.netsports=JSON.parse(data.responses).years3
+        }
+    };
+
+    var par_sports_types3={
+        type: 'survey-text',
+        questions:[
+            {prompt:"具体的にどのような「ネット型スポーツ」を行っていたかを記入してください。" +
+                "<br> 複数ある場合は、経験年数の長いものから順に記入してください。ない場合は、「なし」と記入してください。", 
+            columns:30, 
+            required: true, 
+            horizontal: true,
+            name: 'types3'},
+        ],
+        button_label:'次へ',
+        on_finish:function(data){
+            par_info.nettypes=JSON.parse(data.responses).types3
+        }
+    };
+
+    var par_sports_years4={
+        type: 'survey-multi-choice',
+        questions:[
+            {prompt:"「ゴール型スポーツ」(サッカー、ラグビー等)で、一番長く経験したスポーツの経験年数を選んでください。", 
+            options: ['0ヶ月以上1ヶ月未満', '1か月以上1年未満','1年以上3年未満','3年以上10年未満','10年以上'], 
+            required: true, 
+            horizontal: true,
+            name: 'years4'},
+        ],
+        button_label:'次へ',
+        on_finish:function(data){
+            par_info.goalsports=JSON.parse(data.responses).years4
+        }
+    };
+
+    var par_sports_types4={
+        type: 'survey-text',
+        questions:[
+            {prompt:"具体的にどのような「ゴール型スポーツ」を行っていたかを記入してください。" +
+                "<br> 複数ある場合は、経験年数の長いものから順に記入してください。ない場合は、「なし」と記入してください。", 
+            columns:30, 
+            required: true, 
+            horizontal: true,
+            name: 'types4'},
+        ],
+        button_label:'次へ',
+        on_finish:function(data){
+            par_info.goaltypes=JSON.parse(data.responses).types4
+        }
+    };
+
+    var par_sports_years5={
+        type: 'survey-multi-choice',
+        questions:[
+            {prompt:"今までの項目に当てはまらなかったスポーツで、一番長く経験したスポーツの経験年数を選んでください。", 
+            options: ['0ヶ月以上1ヶ月未満', '1か月以上1年未満','1年以上3年未満','3年以上10年未満','10年以上'], 
+            required: true, 
+            horizontal: true,
+            name: 'years5'},
+        ],
+        button_label:'次へ',
+        on_finish:function(data){
+            par_info.othersports=JSON.parse(data.responses).years5
+        }
+    };
+
+    var par_sports_types5={
+        type: 'survey-text',
+        questions:[
+            {prompt:"具体的にどのようなその他のスポーツを行っていたかを記入してください。" +
+                "<br> 複数ある場合は、経験年数の長いものから順に記入してください。ない場合は、「なし」と記入してください。", 
+            columns:30, 
+            required: true, 
+            horizontal: true,
+            name: 'types5'},
+        ],
+        button_label:'次へ',
+        on_finish:function(data){
+            par_info.othertypes=JSON.parse(data.responses).types5
+        }
+    };
+
+    var game_ins={
+        type:'html-keyboard-response',
+        stimulus:'これでスポーツに関する質問は終わりです。<br>'+
+        　　　　　'次に、ビデオゲームのことについてお聞きします。<br><br>'+
+                 '準備が出来たらいずれかのキーを押して始めてください。'
+
+    }
+
+    var par_game_hard={
+        type: 'survey-multi-choice',
+        questions:[
+            {prompt:"あなたが普段もっともよくプレイするゲームのハードを選んでください。", 
+            options: ['PC(キーボードあり)', 'スマホやタブレット','アーケード','家庭用据え置きゲーム機','その他(プレイしない含む)'], 
+            required: true, 
+            horizontal: true,
+            name: 'game1'},
+        ],
+        button_label:'次へ',
+        on_finish:function(data){
+            par_info.gamehard=JSON.parse(data.responses).game1
+        }
+    };
+
+    var par_game_time1={
+        type: 'survey-multi-choice',
+        questions:[
+            {prompt:"前のページで選択したゲームのプレイ時間に最も近いものを選んで下さい。<br>",
+            options: ['プレイしたことがない・ほとんどプレイしない', '1ヶ月に5時間程度','1週間に5時間程度','毎日2時間程度','毎日5時間以上'], 
+            required: true, 
+            horizontal: true,
+            name: 'time1'},
+        ],
+        button_label:'次へ',
+        on_finish:function(data){
+            par_info.hardtime=JSON.parse(data.responses).time1
+        }
+    };
+
+    var par_game_soft={
+        type: 'survey-multi-choice',
+        questions:[
+            {prompt:"あなたが普段もっともよくプレイするゲームのソフトを選んでください。", 
+            options: ['アクション','RPG','シミュレーション','シナリオ','リズムゲーム','FPS','レーシング','パズル','その他(プレイしない含む)'], 
+            required: true, 
+            horizontal: true,
+            name: 'game2'},
+        ],
+        button_label:'次へ',
+        on_finish:function(data){
+            par_info.gamesoft=JSON.parse(data.responses).game2
+        }
+    };
+
+    var par_game_time2={
+        type: 'survey-multi-choice',
+        questions:[
+            {prompt:"前のページで選択したゲームのプレイ時間に最も近いものを選んで下さい。<br>",
+            options: ['プレイしたことがない・ほとんどプレイしない', '1ヶ月に5時間程度','1週間に5時間程度','毎日2時間程度','毎日5時間以上'], 
+            required: true, 
+            horizontal: true,
+            name: 'time2'},
+        ],
+        button_label:'次へ',
+        on_finish:function(data){
+            par_info.softtime=JSON.parse(data.responses).time2
+        }
+    };
+
+    var nerv_ins={
+        type:'html-keyboard-response',
+        stimulus:'これでビデオゲームについての質問は終わりです。<br>'+
+                 '次に、あなた自身のことについて質問します。<br><br>'+
+                 '準備が出来たらいずれかのキーを押して始めてください。'
+
+    }
+
+    var par_nerv1={
+        type: 'survey-multi-choice',
+        questions:[
+            {prompt:"あなたは普段、「自分は緊張する方だ」と思いますか？当てはまるものを以下の選択肢から選んでください。<br>",
+            options: ['緊張しない', '少し緊張する','普通に緊張する','かなり緊張する','ひどく緊張する'], 
+            required: true, 
+            horizontal: true,
+            name: 'nerv1'},
+        ],
+        button_label:'次へ',
+        on_finish:function(data){
+            par_info.nervous=JSON.parse(data.responses).nerv1
+        }
+    };
+
+    var par_nerv2={
+        type: 'survey-multi-choice',
+        questions:[
+            {prompt:"以下の場面の中で、1番緊張する場面はどれですか？",
+            options: ['人前でしゃべるとき', '異性との会話','重要な試験','責任がのしかかる時','なにかの本番','緊張しない'], 
+            required: true, 
+            horizontal: true,
+            name: 'nerv2'},
+        ],
+        button_label:'次へ',
+        on_finish:function(data){
+            par_info.nervousseen=JSON.parse(data.responses).nerv2
+        }
+    };
+
+    var par_nerv3={
+        type: 'survey-multi-choice',
+        questions:[
+            {prompt:"緊張すると、どのような症状が現れますか？",
+            options: ['どきどきする','体が震える','声が震える','汗をかく','パニックになる','落ち着かなくなる','トイレに行きたくなる','力む'], 
+            required: true, 
+            horizontal: true,
+            name: 'nerv3'},
+        ],
+        button_label:'次へ',
+        on_finish:function(data){
+            par_info.nervoussymp=JSON.parse(data.responses).nerv3
+        }
+    };
+
+    var prac_ins={
+        type:'html-keyboard-response',
+        stimulus:'質問は以上です。お疲れさまでした。<br><br><br>'+
+                 'これから、キー押し課題を行います。<br>'+
+                 '画面中央に「G」「N」がランダムに表示されるので、<br><be>'+
+                 '「G」が表示されたら利き手の人差し指でgキーを押してください。<br>'+
+                 '「N」が表示されたらなにも押さないで下さい。<br><br>'+
+                 '準備が出来たらキーを押してください。練習が始まります。',
+        post_trial_gap:1000
+
+    }
+
+    var trial_ins1={
+        type:'html-keyboard-response',
+        stimulus:'それでは、本計測を行います。計測は全部で5ブロックあります。<br>'+
+                 '椅子に座り、体をリラックスさせた状態で始め、キーを押すとき以外は指の力を抜きましょう。<br><br>'+
+                 '利き手の人差し指をgのキーに置き、準備が出来たらキーを押してください。計測が始まります。',
+        post_trial_gap:1000
+    }
+
+    var trial_ins2={
+        type:'html-keyboard-response',
+        stimulus:'次のブロックは、難易度が上がります。<br>'+
+                 'ただし、やることは変わりません。「G」が出たら押し、「N」が出たら押さないで下さい。<br><br>'+
+                 '利き手の人差し指をgのキーに置き、準備が出来たらキーを押してください。計測が始まります。',
+        post_trial_gap:1000
+    }
+
+    var trial_ins3={
+        type:'html-keyboard-response',
+        stimulus:'次のブロックでもやることは変わりません。「G」が出たら押し、「N」が出たら押さないで下さい。<br>'+
+                 'ただし、次のブロックで8割以上正しくキーを押した方の中から、キー押しが早かった順に3名まで賞金が出ます。<br>'+
+                 '1回キーを押すごとに、速さの評価がありますので、目安にして下さい。<br><br>'+
+                 '利き手の人差し指をgのキーに置き、準備が出来たらキーを押してください。計測が始まります。',
+        post_trial_gap:1000
+    }
+
+    var trial_ins4={
+        type:'html-keyboard-response',
+        stimulus:'次のブロックで最後です。同様に「G」が出たら押し、「N」が出たら押さないで下さい。<br>'+
+                 'ただし、「G」が出たときのキー押しが遅かったり、「N」が出ているのに間違ってキーを押したりすると、最初からやり直しになります。<br>'+
+                 '先ほどと同様に、1回のキー押しごとに、評価がありますので、目安にして下さい。<br><br>'+
+                 '利き手の人差し指をgのキーに置き、準備が出来たらキーを押してください。計測が始まります。',
+        post_trial_gap:1000
+    }
+
+    var par_nerv4={
+        type: 'survey-text',
+        questions:[
+            {prompt:"最初のブロックに比べて、今のブロックで体や心に変化があればすべて記入してください。" +
+            "<br> 変わらなかった場合は「なし」と記入してください。", 
+            columns:30, 
+            required: true, 
+            horizontal: true,
+            name: 'nerv4'},
+        ],
+        button_label:'次へ',
+        on_finish:function(data){
+            par_info.nervoustrial=JSON.parse(data.responses).nerv4
+        }
+    };
+
+    var finish={
+        type:'html-keyboard-response',
+        stimulus:'これで課題は終わりです。お疲れさまでした。ご協力ありがとうございました。<br><br>'+
+                 '今回ご提供頂いた情報は、研究以外の目的には使用しません。<br><br>'+
+                 'ご意見などございましたら、応用生物学課程4回生 、中村響(b8141031@edu.kit.ac.jp)までご連絡下さい。<br><br>'+
+                 '最後に、いずれかのキーを押し、csvファイルを保存してください。<br>'+
+                 'ファイル名を学籍番号に変更し、送信お願いします。',
+        post_trial_gap:1000
+    }
+
+    var fixation={
+        type:'html-keyboard-response',
+        stimulus:"+",
+        choices:jsPsych.NO_KEYS,
+        trial_duration:1000,
+        post_trial_gap:1000,
+    }
+
+    var trial_types1=[
+        {letter:'G',pos:'center',cond:'go'},
+        {letter:'N',pos:'center',cond:'nogo'},
+    ];
+
+    var trial1={
+        type:'html-keyboard-response',
+        stimulus:function(){
+            return '<div class="text_' + jsPsych.timelineVariable('pos', true) + '">' + jsPsych.timelineVariable('letter', true) + '</div>'
+        },
+        choices:['g'],
+        trial_duration:1000,
+        post_trial_gap:1000,
+        data:{
+            letter:jsPsych.timelineVariable('letter'),
+            pos:jsPsych.timelineVariable('pos'),
+            cond:jsPsych.timelineVariable('cond')
+        },
+        on_finish:function(data){
+            data.key=jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press)
+            if(data.letter=='G'){
+                data.correct=Number(data.key=='g')
+            }else{
+                if(data.key=='g'){
+                    data.correct=0
+                }else{
+                    data.correct=1
+                }
+            }
+        }
+    }
+
+    var trial_types2=[
+        {letter:'G',pos:'center',cond:'go',iti:500},
+        {letter:'G',pos:'center',cond:'go',iti:1000},
+        {letter:'N',pos:'center',cond:'nogo',iti:1500},
+        {letter:'N',pos:'center',cond:'nogo',iti:2000},
+    ];
+    
+    var trial2={
+        type:'html-keyboard-response',
+        stimulus:function(){
+            return '<div class="text_' + jsPsych.timelineVariable('pos', true) + '">' + jsPsych.timelineVariable('letter', true) + '</div>'
+        },
+        choices:['g'],
+        trial_duration:1000,
+        post_trial_gap:jsPsych.timelineVariable('iti'),
+        data:{
+            letter:jsPsych.timelineVariable('letter'),
+            pos:jsPsych.timelineVariable('pos'),
+            cond:jsPsych.timelineVariable('cond')
+        },
+        on_finish:function(data){
+            data.key=jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press)
+            if(data.letter=='G'){
+                data.correct=Number(data.key=='g')
+            }else{
+                if(data.key=='g'){
+                    data.correct=0
+                }else{
+                    data.correct=1
+                }
+            }
+        }
+    }
+
+    var trial3_1={
+        type:'html-keyboard-response',
+        stimulus:'G',
+        choices:['g'],
+        trial_duration:1000,
+        post_trial_gap:500,
+        data:{
+            letter:'G',
+            cond:'go'
+        },
+        on_finish:function(data){
+            data.key=jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press)
+            if(data.letter=='G'){
+                data.correct=Number(data.key=='g')
+            }else{
+                if(data.key=='g'){
+                    data.correct=0
+                }else{
+                    data.correct=1
+                }
+            }
+        }
+    }
+
+    var trial3_2={
+        type:'html-keyboard-response',
+        stimulus:'N',
+        choices:['g'],
+        trial_duration:1000,
+        post_trial_gap:500,
+        data:{
+            letter:'N',
+            cond:'nogo'
+        },
+        on_finish:function(data){
+            data.key=jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press)
+            if(data.letter=='G'){
+                data.correct=Number(data.key=='g')
+            }else{
+                if(data.key=='g'){
+                    data.correct=0
+                }else{
+                    data.correct=1
+                }
+            }
+        }
+    }
+
+    var feedback1_1={
+        type:'html-keyboard-response',
+        stimulus:'すごい！',
+        choices:jsPsych.NO_KEYS,
+        trial_duration:1000,
+        post_trial_gap:500,
+    }
+
+    var feedback1_2={
+        type:'html-keyboard-response',
+        stimulus:'すごい！',
+        choices:jsPsych.NO_KEYS,
+        trial_duration:1000,
+        post_trial_gap:1000,
+    }
+
+    var feedback1_3={
+        type:'html-keyboard-response',
+        stimulus:'すごい！',
+        choices:jsPsych.NO_KEYS,
+        trial_duration:1000,
+        post_trial_gap:1500,
+    }
+
+    var feedback1_4={
+        type:'html-keyboard-response',
+        stimulus:'すごい！',
+        choices:jsPsych.NO_KEYS,
+        trial_duration:1000,
+        post_trial_gap:2000,
+    }
+
+    var feedback1_5={
+        type:'html-keyboard-response',
+        stimulus:'天才だ！',
+        choices:jsPsych.NO_KEYS,
+        trial_duration:1000,
+        post_trial_gap:500,
+    }
+
+    var feedback1_6={
+        type:'html-keyboard-response',
+        stimulus:'天才だ！',
+        choices:jsPsych.NO_KEYS,
+        trial_duration:1000,
+        post_trial_gap:1000,
+    }
+
+    var feedback1_7={
+        type:'html-keyboard-response',
+        stimulus:'天才だ！',
+        choices:jsPsych.NO_KEYS,
+        trial_duration:1000,
+        post_trial_gap:1500,
+    }
+
+    var feedback1_8={
+        type:'html-keyboard-response',
+        stimulus:'天才だ！',
+        choices:jsPsych.NO_KEYS,
+        trial_duration:1000,
+        post_trial_gap:2000,
+    }
+
+    var feedback1_9={
+        type:'html-keyboard-response',
+        stimulus:'やったね！',
+        choices:jsPsych.NO_KEYS,
+        trial_duration:1000,
+        post_trial_gap:500,
+    }
+
+    var feedback1_10={
+        type:'html-keyboard-response',
+        stimulus:'やったね！',
+        choices:jsPsych.NO_KEYS,
+        trial_duration:1000,
+        post_trial_gap:1000,
+    }
+
+    var feedback1_11={
+        type:'html-keyboard-response',
+        stimulus:'やったね！',
+        choices:jsPsych.NO_KEYS,
+        trial_duration:1000,
+        post_trial_gap:1500,
+    }
+
+    var feedback1_12={
+        type:'html-keyboard-response',
+        stimulus:'やったね！',
+        choices:jsPsych.NO_KEYS,
+        trial_duration:1000,
+        post_trial_gap:2000,
+    }
+
+    var feedback1_13={
+        type:'html-keyboard-response',
+        stimulus:'その調子！',
+        choices:jsPsych.NO_KEYS,
+        trial_duration:1000,
+        post_trial_gap:500,
+    }
+
+    var feedback1_14={
+        type:'html-keyboard-response',
+        stimulus:'その調子！',
+        choices:jsPsych.NO_KEYS,
+        trial_duration:1000,
+        post_trial_gap:1000,
+    }
+
+    var feedback1_15={
+        type:'html-keyboard-response',
+        stimulus:'その調子！',
+        choices:jsPsych.NO_KEYS,
+        trial_duration:1000,
+        post_trial_gap:1500,
+    }
+
+    var feedback1_16={
+        type:'html-keyboard-response',
+        stimulus:'その調子！',
+        choices:jsPsych.NO_KEYS,
+        trial_duration:1000,
+        post_trial_gap:2000,
+    }
+
+    var feedback2_1={
+        type:'html-keyboard-response',
+        stimulus:'残念！',
+        choices:jsPsych.NO_KEYS,
+        trial_duration:1000,
+        post_trial_gap:500,
+    }
+
+    var feedback2_2={
+        type:'html-keyboard-response',
+        stimulus:'残念！',
+        choices:jsPsych.NO_KEYS,
+        trial_duration:1000,
+        post_trial_gap:1000,
+    }
+
+    var feedback2_3={
+        type:'html-keyboard-response',
+        stimulus:'残念！',
+        choices:jsPsych.NO_KEYS,
+        trial_duration:1000,
+        post_trial_gap:1500,
+    }
+
+    var feedback2_4={
+        type:'html-keyboard-response',
+        stimulus:'残念！',
+        choices:jsPsych.NO_KEYS,
+        trial_duration:1000,
+        post_trial_gap:2000,
+    }
+
+    var feedback2_5={
+        type:'html-keyboard-response',
+        stimulus:'遅い！',
+        choices:jsPsych.NO_KEYS,
+        trial_duration:1000,
+        post_trial_gap:500,
+    }
+
+    var feedback2_6={
+        type:'html-keyboard-response',
+        stimulus:'遅い！',
+        choices:jsPsych.NO_KEYS,
+        trial_duration:1000,
+        post_trial_gap:1000,
+    }
+
+    var feedback2_7={
+        type:'html-keyboard-response',
+        stimulus:'遅い！',
+        choices:jsPsych.NO_KEYS,
+        trial_duration:1000,
+        post_trial_gap:1500,
+    }
+
+    var feedback2_8={
+        type:'html-keyboard-response',
+        stimulus:'遅い！',
+        choices:jsPsych.NO_KEYS,
+        trial_duration:1000,
+        post_trial_gap:2000,
+    }
+
+    var feedback2_9={
+        type:'html-keyboard-response',
+        stimulus:'最初から！',
+        choices:jsPsych.NO_KEYS,
+        trial_duration:1000,
+        post_trial_gap:500,
+    }
+
+    var feedback2_10={
+        type:'html-keyboard-response',
+        stimulus:'最初から！',
+        choices:jsPsych.NO_KEYS,
+        trial_duration:1000,
+        post_trial_gap:1000,
+    }
+
+    var feedback2_11={
+        type:'html-keyboard-response',
+        stimulus:'最初から！',
+        choices:jsPsych.NO_KEYS,
+        trial_duration:1000,
+        post_trial_gap:1500,
+    }
+
+    var feedback2_12={
+        type:'html-keyboard-response',
+        stimulus:'最初から！',
+        choices:jsPsych.NO_KEYS,
+        trial_duration:1000,
+        post_trial_gap:2000,
+    }
+
+    var feedback2_13={
+        type:'html-keyboard-response',
+        stimulus:'ダメ！',
+        choices:jsPsych.NO_KEYS,
+        trial_duration:1000,
+        post_trial_gap:500,
+    }
+
+    var feedback2_14={
+        type:'html-keyboard-response',
+        stimulus:'ダメ！',
+        choices:jsPsych.NO_KEYS,
+        trial_duration:1000,
+        post_trial_gap:1000,
+    }
+
+    var feedback2_15={
+        type:'html-keyboard-response',
+        stimulus:'ダメ！',
+        choices:jsPsych.NO_KEYS,
+        trial_duration:1000,
+        post_trial_gap:1500,
+    }
+
+    var feedback2_16={
+        type:'html-keyboard-response',
+        stimulus:'ダメ！',
+        choices:jsPsych.NO_KEYS,
+        trial_duration:1000,
+        post_trial_gap:2000,
+    }
+
+
+    trial_types_practice=jsPsych.randomization.repeat(trial_types1,4);
+
+    var gn_practice={
+    timeline_variables:trial_types_practice,
+    timeline:[trial1],
+}
+
+    trial_types1_main=jsPsych.randomization.repeat(trial_types1,20);
+
+    var gn1_main={
+    timeline_variables:trial_types1_main,
+    timeline:[trial1],
+}
+
+    trial_types2_main=jsPsych.randomization.repeat(trial_types2,10);
+
+    var gn2_main={
+    timeline_variables:trial_types2_main,
+    timeline:[trial2],
+}
+
+    jsPsych.init({timeline:[par_dep,par_id,par_name,par_age,que_ins,
+                        sports_ins,par_sports_years1,par_sports_types1,par_sports_years2,par_sports_types2,par_sports_years3,par_sports_types3,par_sports_years4,par_sports_types4,par_sports_years5,par_sports_types5,
+                        game_ins,par_game_hard,par_game_time1,par_game_soft,par_game_time2,
+                        nerv_ins,par_nerv1,par_nerv2,par_nerv3,
+                        prac_ins,fixation,gn_practice,
+                        trial_ins1,fixation,gn1_main,
+                        trial_ins2,fixation,gn2_main,par_nerv4,
+                        trial_ins3,fixation,
+                        trial3_1,feedback1_4,trial3_2,feedback1_8,trial3_2,feedback1_1,trial3_1,feedback1_15,trial3_2,feedback1_11,
+                        trial3_1,feedback1_7,trial3_1,feedback1_11,trial3_2,feedback1_14,trial3_1,feedback1_6,trial3_1,feedback1_6,
+                        trial3_2,feedback1_4,trial3_2,feedback1_11,trial3_1,feedback1_1,trial3_1,feedback1_2,trial3_1,feedback1_15,
+                        trial3_1,feedback1_14,trial3_2,feedback1_11,trial3_2,feedback1_12,trial3_2,feedback1_3,trial3_2,feedback1_4,
+                        trial3_1,feedback1_7,trial3_2,feedback1_6,trial3_1,feedback1_10,trial3_2,feedback1_9,trial3_2,feedback1_13,
+                        trial3_2,feedback1_12,trial3_2,feedback1_7,trial3_2,feedback1_16,trial3_2,feedback1_9,trial3_2,feedback1_7,
+                        trial3_2,feedback1_13,trial3_1,feedback1_7,trial3_1,feedback1_12,trial3_2,feedback1_1,trial3_1,feedback1_3,
+                        trial3_2,feedback1_14,trial3_1,feedback1_13,trial3_1,feedback1_16,trial3_2,feedback1_5,trial3_2,feedback1_11,par_nerv4,
+                        trial_ins4,fixation,
+                        trial3_1,feedback2_15,trial3_2,feedback2_7,trial3_1,feedback2_9,trial3_2,feedback2_8,trial3_1,feedback2_10,
+                        trial3_1,feedback2_1,trial3_2,feedback2_4,trial3_1,feedback2_8,trial3_2,feedback2_2,trial3_2,feedback2_7,
+                        trial3_1,feedback2_15,trial3_2,feedback2_5,trial3_2,feedback2_7,trial3_2,feedback2_7,trial3_1,feedback2_12,
+                        trial3_2,feedback2_16,trial3_2,feedback2_3,trial3_2,feedback2_3,trial3_2,feedback2_15,trial3_1,feedback2_10,
+                        trial3_2,feedback2_1,trial3_2,feedback2_13,trial3_2,feedback2_6,trial3_1,feedback2_8,trial3_1,feedback2_7,
+                        trial3_1,feedback2_5,trial3_2,feedback2_1,trial3_1,feedback2_14,trial3_1,feedback2_13,trial3_2,feedback2_5,
+                        trial3_2,feedback2_5,trial3_1,feedback2_6,trial3_1,feedback2_1,trial3_1,feedback2_2,trial3_1,feedback2_11,
+                        trial3_1,feedback2_14,trial3_2,feedback2_3,trial3_2,feedback2_14,trial3_1,feedback2_6,trial3_1,feedback2_14,
+                        par_nerv4,finish
+],
+    on_finish:function(){
+        jsPsych.data.addProperties(par_info);
+        jsPsych.data.get().localSave('csv','data.csv');
+    },
+    });
+</script>
+</html>

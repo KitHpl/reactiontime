@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<style>
+        .text {
+        font-size: 50px;
+    }
+        .fixation{
+        font-size: 30px;
+    }
+</style>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="../jspsych.js"></script>
+    <script src="../plugins/jspsych-html-keyboard-response.js"></script>
+    <script src="../plugins/jspsych-survey-text.js"></script>
+    <script src="../plugins/jspsych-survey-multi-choice.js"></script>
+    <script src="../plugins/jspsych-html-button-response.js"></script>
+    <link rel="stylesheet" href="../css/jspsych.css"></link>
+</head>
+<body></body>
+
+<script>
+var par_info={};
+
+var prac_ins={
+        type: 'html-button-response',
+        stimulus:'これからキー押し課題を行います。<br>'+
+                 '画面中央に「G」「N」がランダムに表示されるので、<br><be>'+
+                 '「G」が表示されたら利き手の人差し指でgキーを押してください。<br>'+
+                 '「N」が表示されたらなにも押さないで下さい。<br><br>'+
+                 '準備が出来たらボタンを押してください。練習が始まります。<br><br>', 
+        choices: ['始める'],
+        post_trial_gap:1000
+
+    }
+
+var trial_ins={
+　　type:'html-button-response',
+        stimulus:'それでは、本計測を行います。<br>'+
+        　　　　　'「G」および「N」がランダムに合計4回表示されます。それを1ブロックとします。<br><br>'+                              　　　　　
+                 'そして、各ブロックの終わりに、「G」の文字に反応出来た速度の平均値が表示されます。<br>'+
+　　　　　　　　　 'そのブロックの平均速度を確認したら、次のブロックではその速度を超えられるように頑張って下さい。<br>'+
+　　　　　　　　　 'ただし、ミスがあったブロックの終わりには平均速度は表示されません。<br>'+
+                 '　※「ミス」とは、「N」が表示されているのにキーを押してしまった、「G」が表示されているのに押せなかった場合を指します。<br><br>'+        　　　　　
+                 'リラックスした状態で始め、キーを押すとき以外は指の力を抜きましょう。<br>'+
+                 '利き手の人差し指をgのキーに置き、準備が出来たらボタンを押してください。計測が始まります。<br><br>',
+        choices:['始める'],
+        post_trial_gap:1000
+    }
+
+var feedback1 = {
+  type: 'html-button-response',
+  choices: ['次のブロックへ'],
+  post_trial_gap:1000,
+  on_start: function(trial) {
+    var all_data = jsPsych.data.get().values();
+    console.log(all_data);
+    if(all_data[12].correct==0||all_data[13].correct==0||all_data[14].correct==0||all_data[15].correct==0){
+                trial.stimulus = 'ミスがありました！！！'
+            }else{trial.stimulus=((((all_data[12].rt)+(all_data[13].rt)+(all_data[14].rt)+(all_data[15].rt))/2)+50)+'ミリ秒'
+            };
+  }
+
+
+}
+
+var feedback2 = {
+  type: 'html-button-response',
+  choices: ['次のブロックへ'],
+  post_trial_gap:1000,
+  on_start: function(trial) {
+    var all_data = jsPsych.data.get().values();
+    console.log(all_data);
+    if(all_data[18].correct==0||all_data[19].correct==0||all_data[20].correct==0||all_data[21].correct==0){
+                trial.stimulus = 'ミスがありました！！！'
+            }else{trial.stimulus=((((all_data[18].rt)+(all_data[19].rt)+(all_data[20].rt)+(all_data[21].rt))/2)-50)+'ミリ秒'
+            };
+  }
+
+
+}
+
+var feedback3 = {
+  type: 'html-button-response',
+  choices: ['次のブロックへ'],
+  post_trial_gap:1000,
+  on_start: function(trial) {
+    var all_data = jsPsych.data.get().values();
+    console.log(all_data);
+    if(all_data[24].correct==0||all_data[25].correct==0||all_data[26].correct==0||all_data[27].correct==0){
+                trial.stimulus = 'ミスがありました！！！'
+            }else{trial.stimulus=((((all_data[24].rt)+(all_data[25].rt)+(all_data[26].rt)+(all_data[27].rt))/2)+200)+'ミリ秒'
+            };
+  }
+
+
+}
+
+var feedback4 = {
+  type: 'html-button-response',
+  choices: ['次のブロックへ'],
+  post_trial_gap:1000,
+  on_start: function(trial) {
+    var all_data = jsPsych.data.get().values();
+    console.log(all_data);
+    if(all_data[30].correct==0||all_data[31].correct==0||all_data[32].correct==0||all_data[34].correct==0){
+                trial.stimulus = 'ミスがありました！！！'
+            }else{trial.stimulus=((((all_data[30].rt)+(all_data[31].rt)+(all_data[32].rt)+(all_data[33].rt))/2)+50)+'ミリ秒'
+            };
+  }
+
+
+}
+
+var feedback5 = {
+  type: 'html-button-response',
+  choices: ['次のブロックへ'],
+  post_trial_gap:1000,
+  on_start: function(trial) {
+    var all_data = jsPsych.data.get().values();
+    console.log(all_data);
+    if(all_data[36].correct==0||all_data[37].correct==0||all_data[38].correct==0||all_data[39].correct==0){
+                trial.stimulus = 'ミスがありました！！！'
+            }else{trial.stimulus=((((all_data[36].rt)+(all_data[37].rt)+(all_data[38].rt)+(all_data[39].rt))/2)+200)+'ミリ秒'
+            };
+  }
+
+
+}
+
+var feedback6 = {
+  type: 'html-button-response',
+  choices: ['次のブロックへ'],
+  post_trial_gap:1000,
+  on_start: function(trial) {
+    var all_data = jsPsych.data.get().values();
+    console.log(all_data);
+    if(all_data[42].correct==0||all_data[43].correct==0||all_data[44].correct==0||all_data[45].correct==0){
+                trial.stimulus = 'ミスがありました！！！'
+            }else{trial.stimulus=((((all_data[42].rt)+(all_data[43].rt)+(all_data[44].rt)+(all_data[45].rt))/2)-200)+'ミリ秒'
+            };
+  }
+
+
+}
+
+var feedback7 = {
+  type: 'html-button-response',
+  choices: ['次のブロックへ'],
+  post_trial_gap:1000,
+  on_start: function(trial) {
+    var all_data = jsPsych.data.get().values();
+    console.log(all_data);
+    if(all_data[48].correct==0||all_data[49].correct==0||all_data[50].correct==0||all_data[51].correct==0){
+                trial.stimulus = 'ミスがありました！！！'
+            }else{trial.stimulus=((((all_data[48].rt)+(all_data[49].rt)+(all_data[50].rt)+(all_data[51].rt))/2)-50)+'ミリ秒'
+            };
+  }
+
+
+}
+
+var feedback8 = {
+  type: 'html-button-response',
+  choices: ['次のブロックへ'],
+  post_trial_gap:1000,
+  on_start: function(trial) {
+    var all_data = jsPsych.data.get().values();
+    console.log(all_data);
+    if(all_data[54].correct==0||all_data[55].correct==0||all_data[56].correct==0||all_data[57].correct==0){
+                trial.stimulus = 'ミスがありました！！！'
+            }else{trial.stimulus=((((all_data[54].rt)+(all_data[55].rt)+(all_data[56].rt)+(all_data[57].rt))/2)-200)+'ミリ秒'
+            };
+  }
+
+
+}
+
+var feedback9 = {
+  type: 'html-button-response',
+  choices: ['次のブロックへ'],
+  post_trial_gap:1000,
+  on_start: function(trial) {
+    var all_data = jsPsych.data.get().values();
+    console.log(all_data);
+    if(all_data[60].correct==0||all_data[61].correct==0||all_data[62].correct==0||all_data[63].correct==0){
+                trial.stimulus = 'ミスがありました！！！'
+            }else{trial.stimulus=((((all_data[60].rt)+(all_data[61].rt)+(all_data[62].rt)+(all_data[63].rt))/2)+50)+'ミリ秒'
+            };
+  }
+
+
+}
+
+var feedback10 = {
+  type: 'html-button-response',
+  choices: ['次のブロックへ'],
+  post_trial_gap:1000,
+  on_start: function(trial) {
+    var all_data = jsPsych.data.get().values();
+    console.log(all_data);
+    if(all_data[66].correct==0||all_data[67].correct==0||all_data[68].correct==0||all_data[69].correct==0){
+                trial.stimulus = 'ミスがありました！！！'
+            }else{trial.stimulus=((+(all_data[66].rt)+(all_data[67].rt)+(all_data[68].rt)+(all_data[69].rt))/2)+'ミリ秒'
+            };
+  }
+
+
+}
+
+var feedback11 = {
+  type: 'html-button-response',
+  choices: ['次のブロックへ'],
+  post_trial_gap:1000,
+  on_start: function(trial) {
+    var all_data = jsPsych.data.get().values();
+    console.log(all_data);
+    if(all_data[72].correct==0||all_data[73].correct==0||all_data[74].correct==0||all_data[75].correct==0){
+                trial.stimulus = 'ミスがありました！！！'
+            }else{trial.stimulus=((((all_data[72].rt)+(all_data[73].rt)+(all_data[74].rt)+(all_data[75].rt))/2)-50)+'ミリ秒'
+            };
+  }
+
+
+}
+
+var feedback12 = {
+  type: 'html-button-response',
+  choices: ['次のブロックへ'],
+  post_trial_gap:1000,
+  on_start: function(trial) {
+    var all_data = jsPsych.data.get().values();
+    console.log(all_data);
+    if(all_data[78].correct==0||all_data[79].correct==0||all_data[80].correct==0||all_data[81].correct==0){
+                trial.stimulus = 'ミスがありました！！！'
+            }else{trial.stimulus=((((all_data[78].rt)+(all_data[79].rt)+(all_data[80].rt)+(all_data[81].rt))/2)+200)+'ミリ秒'
+            };
+  }
+
+
+}
+
+var feedback13 = {
+  type: 'html-button-response',
+  choices: ['次のブロックへ'],
+  post_trial_gap:1000,
+  on_start: function(trial) {
+    var all_data = jsPsych.data.get().values();
+    console.log(all_data);
+    if(all_data[84].correct==0||all_data[85].correct==0||all_data[86].correct==0||all_data[87].correct==0){
+                trial.stimulus = 'ミスがありました！！！'
+            }else{trial.stimulus=(((all_data[84].rt)+(all_data[85].rt)+(all_data[86].rt)+(all_data[87].rt))/2)+'ミリ秒'
+            };
+  }
+
+
+}
+
+var feedback14 = {
+  type: 'html-button-response',
+  choices: ['次のブロックへ'],
+  post_trial_gap:1000,
+  on_start: function(trial) {
+    var all_data = jsPsych.data.get().values();
+    console.log(all_data);
+    if(all_data[90].correct==0||all_data[91].correct==0||all_data[92].correct==0||all_data[93].correct==0){
+                trial.stimulus = 'ミスがありました！！！'
+            }else{trial.stimulus=((((all_data[90].rt)+(all_data[91].rt)+(all_data[92].rt)+(all_data[93].rt))/2)+50)+'ミリ秒'
+            };
+  }
+
+
+}
+
+var feedback15 = {
+  type: 'html-button-response',
+  choices: ['次のブロックへ'],
+  post_trial_gap:1000,
+  on_start: function(trial) {
+    var all_data = jsPsych.data.get().values();
+    console.log(all_data);
+    if(all_data[96].correct==0||all_data[97].correct==0||all_data[98].correct==0||all_data[99].correct==0){
+                trial.stimulus = 'ミスがありました！！！'
+            }else{trial.stimulus=((((all_data[96].rt)+(all_data[97].rt)+(all_data[98].rt)+(all_data[99].rt))/2)+200)+'ミリ秒'
+            };
+  }
+
+
+}
+
+var feedback16 = {
+  type: 'html-button-response',
+  choices: ['次のブロックへ'],
+  post_trial_gap:1000,
+  on_start: function(trial) {
+    var all_data = jsPsych.data.get().values();
+    console.log(all_data);
+    if(all_data[102].correct==0||all_data[103].correct==0||all_data[104].correct==0||all_data[105].correct==0){
+                trial.stimulus = 'ミスがありました！！！'
+            }else{trial.stimulus=((((all_data[102].rt)+(all_data[103].rt)+(all_data[104].rt)+(all_data[105].rt))/2)+50)+'ミリ秒'
+            };
+  }
+
+
+}
+
+var feedback17 = {
+  type: 'html-button-response',
+  choices: ['次のブロックへ'],
+  post_trial_gap:1000,
+  on_start: function(trial) {
+    var all_data = jsPsych.data.get().values();
+    console.log(all_data);
+    if(all_data[108].correct==0||all_data[109].correct==0||all_data[110].correct==0||all_data[111].correct==0){
+                trial.stimulus = 'ミスがありました！！！'
+            }else{trial.stimulus=(((all_data[108].rt)+(all_data[109].rt)+(all_data[110].rt)+(all_data[107].rt))/2)+'ミリ秒'
+            };
+  }
+
+
+}
+
+var feedback18 = {
+  type: 'html-button-response',
+  choices: ['次のブロックへ'],
+  post_trial_gap:1000,
+  on_start: function(trial) {
+    var all_data = jsPsych.data.get().values();
+    console.log(all_data);
+    if(all_data[114].correct==0||all_data[115].correct==0||all_data[116].correct==0||all_data[117].correct==0){
+                trial.stimulus = 'ミスがありました！！！'
+            }else{trial.stimulus=((((all_data[114].rt)+(all_data[115].rt)+(all_data[116].rt)+(all_data[117].rt))/2)+200)+'ミリ秒'
+            };
+  }
+
+
+}
+
+var feedback19 = {
+  type: 'html-button-response',
+  choices: ['次のブロックへ'],
+  post_trial_gap:1000,
+  on_start: function(trial) {
+    var all_data = jsPsych.data.get().values();
+    console.log(all_data);
+    if(all_data[120].correct==0||all_data[121].correct==0||all_data[122].correct==0||all_data[123].correct==0){
+                trial.stimulus = 'ミスがありました！！！'
+            }else{trial.stimulus=(((all_data[120].rt)+(all_data[121].rt)+(all_data[122].rt)+(all_data[123].rt))/2)+'ミリ秒'
+            };
+  }
+
+
+}
+
+var feedback20 = {
+  type: 'html-button-response',
+  choices: ['次のブロックへ'],
+  post_trial_gap:1000,
+  on_start: function(trial) {
+    var all_data = jsPsych.data.get().values();
+    console.log(all_data);
+    if(all_data[126].correct==0||all_data[127].correct==0||all_data[128].correct==0||all_data[129].correct==0){
+                trial.stimulus = 'ミスがありました！！！'
+            }else{trial.stimulus=(((all_data[126].rt)+(all_data[127].rt)+(all_data[128].rt)+(all_data[129].rt))/2)+'ミリ秒'
+            };
+  }
+
+
+}
+
+var feedback21 = {
+  type: 'html-button-response',
+  choices: ['次のブロックへ'],
+  post_trial_gap:1000,
+  on_start: function(trial) {
+    var all_data = jsPsych.data.get().values();
+    console.log(all_data);
+    if(all_data[132].correct==0||all_data[133].correct==0||all_data[134].correct==0||all_data[135].correct==0){
+                trial.stimulus = 'ミスがありました！！！'
+            }else{trial.stimulus=(((all_data[132].rt)+(all_data[133].rt)+(all_data[134].rt)+(all_data[135].rt))/2)+'ミリ秒'
+            };
+  }
+
+
+}
+
+var feedback22 = {
+  type: 'html-button-response',
+  choices: ['次のブロックへ'],
+  post_trial_gap:1000,
+  on_start: function(trial) {
+    var all_data = jsPsych.data.get().values();
+    console.log(all_data);
+    if(all_data[138].correct==0||all_data[139].correct==0||all_data[140].correct==0||all_data[141].correct==0){
+                trial.stimulus = 'ミスがありました！！！'
+            }else{trial.stimulus=(((all_data[138].rt)+(all_data[139].rt)+(all_data[140].rt)+(all_data[141].rt))/2)+'ミリ秒'
+            };
+  }
+
+
+}
+
+var feedback23 = {
+  type: 'html-button-response',
+  choices: ['次のブロックへ'],
+  post_trial_gap:1000,
+  on_start: function(trial) {
+    var all_data = jsPsych.data.get().values();
+    console.log(all_data);
+    if(all_data[144].correct==0||all_data[145].correct==0||all_data[146].correct==0||all_data[147].correct==0){
+                trial.stimulus = 'ミスがありました！！！'
+            }else{trial.stimulus=(((all_data[144].rt)+(all_data[145].rt)+(all_data[146].rt)+(all_data[147].rt))/2)+'ミリ秒'
+            };
+  }
+
+
+}
+
+var feedback24 = {
+  type: 'html-button-response',
+  choices: ['次のブロックへ'],
+  post_trial_gap:1000,
+  on_start: function(trial) {
+    var all_data = jsPsych.data.get().values();
+    console.log(all_data);
+    if(all_data[150].correct==0||all_data[151].correct==0||all_data[152].correct==0||all_data[153].correct==0){
+                trial.stimulus = 'ミスがありました！！！'
+            }else{trial.stimulus=((((all_data[150].rt)+(all_data[151].rt)+(all_data[152].rt)+(all_data[153].rt))/2)-200)+'ミリ秒'
+            };
+  }
+
+
+}
+
+var feedback25 = {
+  type: 'html-button-response',
+  choices: ['次のブロックへ'],
+  post_trial_gap:1000,
+  on_start: function(trial) {
+    var all_data = jsPsych.data.get().values();
+    console.log(all_data);
+    if(all_data[156].correct==0||all_data[157].correct==0||all_data[158].correct==0||all_data[159].correct==0){
+                trial.stimulus = 'ミスがありました！！！'
+            }else{trial.stimulus=((((all_data[156].rt)+(all_data[157].rt)+(all_data[158].rt)+(all_data[159].rt))/2)-50)+'ミリ秒'
+            };
+  }
+
+
+}
+
+var feedback26 = {
+  type: 'html-button-response',
+  choices: ['次のブロックへ'],
+  post_trial_gap:1000,
+  on_start: function(trial) {
+    var all_data = jsPsych.data.get().values();
+    console.log(all_data);
+    if(all_data[162].correct==0||all_data[163].correct==0||all_data[164].correct==0||all_data[165].correct==0){
+                trial.stimulus = 'ミスがありました！！！'
+            }else{trial.stimulus=(((all_data[162].rt)+(all_data[163].rt)+(all_data[164].rt)+(all_data[165].rt))/2)+'ミリ秒'
+            };
+  }
+
+
+}
+
+var feedback27 = {
+  type: 'html-button-response',
+  choices: ['次のブロックへ'],
+  post_trial_gap:1000,
+  on_start: function(trial) {
+    var all_data = jsPsych.data.get().values();
+    console.log(all_data);
+    if(all_data[168].correct==0||all_data[169].correct==0||all_data[170].correct==0||all_data[171].correct==0){
+                trial.stimulus = 'ミスがありました！！！'
+            }else{trial.stimulus=(((all_data[168].rt)+(all_data[169].rt)+(all_data[170].rt)+(all_data[171].rt))/2)+'ミリ秒'
+            };
+  }
+
+
+}
+
+var feedback28 = {
+  type: 'html-button-response',
+  choices: ['次のブロックへ'],
+  post_trial_gap:1000,
+  on_start: function(trial) {
+    var all_data = jsPsych.data.get().values();
+    console.log(all_data);
+    if(all_data[174].correct==0||all_data[175].correct==0||all_data[176].correct==0||all_data[177].correct==0){
+                trial.stimulus = 'ミスがありました！！！'
+            }else{trial.stimulus=(((all_data[174].rt)+(all_data[175].rt)+(all_data[176].rt)+(all_data[177].rt))/2)+'ミリ秒'
+            };
+  }
+
+
+}
+
+var feedback29 = {
+  type: 'html-button-response',
+  choices: ['次のブロックへ'],
+  post_trial_gap:1000,
+  on_start: function(trial) {
+    var all_data = jsPsych.data.get().values();
+    console.log(all_data);
+    if(all_data[180].correct==0||all_data[181].correct==0||all_data[182].correct==0||all_data[183].correct==0){
+                trial.stimulus = 'ミスがありました！！！'
+            }else{trial.stimulus=((((all_data[180].rt)+(all_data[181].rt)+(all_data[182].rt)+(all_data[183].rt))/2)-200)+'ミリ秒'
+            };
+  }
+
+
+}
+
+var feedback30 = {
+  type: 'html-button-response',
+  choices: ['次のブロックへ'],
+  post_trial_gap:1000,
+  on_start: function(trial) {
+    var all_data = jsPsych.data.get().values();
+    console.log(all_data);
+    if(all_data[186].correct==0||all_data[187].correct==0||all_data[188].correct==0||all_data[189].correct==0){
+                trial.stimulus = 'ミスがありました！！！'
+            }else{trial.stimulus=((((all_data[186].rt)+(all_data[187].rt)+(all_data[188].rt)+(all_data[189].rt))/2)-50)+'ミリ秒'
+            };
+  }
+
+
+}
+
+
+var fixation={
+        type:'html-keyboard-response',
+        stimulus:function(){
+            return '<p class="fixation">+</p>'
+        },
+        choices:jsPsych.NO_KEYS,
+        trial_duration:1000,
+        post_trial_gap:1000,
+    }
+
+var trial_types=[
+        {letter:'G',pos:'center',cond:'go',iti:500},
+        {letter:'G',pos:'center',cond:'go',iti:1000},
+        {letter:'N',pos:'center',cond:'nogo',iti:1500},
+        {letter:'N',pos:'center',cond:'nogo',iti:2000},
+    ];
+
+var trial={
+        type:'html-keyboard-response',
+        stimulus:function(){
+            return '<p class="text">' + jsPsych.timelineVariable('letter', true) + '</p>'
+        },
+        choices:['g'],
+        trial_duration:1000,
+        post_trial_gap:jsPsych.timelineVariable('iti'),
+        data:{
+            letter:jsPsych.timelineVariable('letter'),
+            pos:jsPsych.timelineVariable('pos'),
+            cond:jsPsych.timelineVariable('cond')
+        },
+        on_finish:function(data){
+            data.key=jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press)
+            if(data.letter=='G'){
+                data.correct=Number(data.key=='g')
+            }else{
+                if(data.key=='g'){
+                    data.correct=0
+                }else{
+                    data.correct=1
+                }
+            }
+        }
+    }
+
+    trial_types_practice=jsPsych.randomization.repeat(trial_types,2);
+    trial_types_main1=jsPsych.randomization.repeat(trial_types,1);
+    trial_types_main2=jsPsych.randomization.repeat(trial_types,1);
+    trial_types_main3=jsPsych.randomization.repeat(trial_types,1);
+    trial_types_main4=jsPsych.randomization.repeat(trial_types,1);
+    trial_types_main5=jsPsych.randomization.repeat(trial_types,1);
+    trial_types_main6=jsPsych.randomization.repeat(trial_types,1);
+    trial_types_main7=jsPsych.randomization.repeat(trial_types,1);
+    trial_types_main8=jsPsych.randomization.repeat(trial_types,1);
+    trial_types_main9=jsPsych.randomization.repeat(trial_types,1);
+    trial_types_main10=jsPsych.randomization.repeat(trial_types,1);
+    trial_types_main11=jsPsych.randomization.repeat(trial_types,1);
+    trial_types_main12=jsPsych.randomization.repeat(trial_types,1);
+    trial_types_main13=jsPsych.randomization.repeat(trial_types,1);
+    trial_types_main14=jsPsych.randomization.repeat(trial_types,1);
+    trial_types_main15=jsPsych.randomization.repeat(trial_types,1);
+    trial_types_main16=jsPsych.randomization.repeat(trial_types,1);
+    trial_types_main17=jsPsych.randomization.repeat(trial_types,1);
+    trial_types_main18=jsPsych.randomization.repeat(trial_types,1);
+    trial_types_main19=jsPsych.randomization.repeat(trial_types,1);
+    trial_types_main20=jsPsych.randomization.repeat(trial_types,1);
+    trial_types_main21=jsPsych.randomization.repeat(trial_types,1);
+    trial_types_main22=jsPsych.randomization.repeat(trial_types,1);
+    trial_types_main23=jsPsych.randomization.repeat(trial_types,1);
+    trial_types_main24=jsPsych.randomization.repeat(trial_types,1);
+    trial_types_main25=jsPsych.randomization.repeat(trial_types,1);
+    trial_types_main26=jsPsych.randomization.repeat(trial_types,1);
+    trial_types_main27=jsPsych.randomization.repeat(trial_types,1);
+    trial_types_main28=jsPsych.randomization.repeat(trial_types,1);
+    trial_types_main29=jsPsych.randomization.repeat(trial_types,1);
+    trial_types_main30=jsPsych.randomization.repeat(trial_types,1);
+
+var gn_practice={
+    timeline_variables:trial_types_practice,
+    timeline:[trial],
+}
+
+var gn_main1={
+    timeline_variables:trial_types_main1,
+    timeline:[trial],
+}
+
+var gn_main2={
+    timeline_variables:trial_types_main2,
+    timeline:[trial],
+}
+
+var gn_main3={
+    timeline_variables:trial_types_main3,
+    timeline:[trial],
+}
+
+var gn_main4={
+    timeline_variables:trial_types_main4,
+    timeline:[trial],
+}
+
+var gn_main5={
+    timeline_variables:trial_types_main5,
+    timeline:[trial],
+}
+
+var gn_main6={
+    timeline_variables:trial_types_main6,
+    timeline:[trial],
+}
+
+var gn_main7={
+    timeline_variables:trial_types_main7,
+    timeline:[trial],
+}
+
+var gn_main8={
+    timeline_variables:trial_types_main8,
+    timeline:[trial],
+}
+
+var gn_main9={
+    timeline_variables:trial_types_main9,
+    timeline:[trial],
+}
+
+var gn_main10={
+    timeline_variables:trial_types_main10,
+    timeline:[trial],
+}
+
+var gn_main11={
+    timeline_variables:trial_types_main11,
+    timeline:[trial],
+}
+
+var gn_main12={
+    timeline_variables:trial_types_main12,
+    timeline:[trial],
+}
+
+var gn_main13={
+    timeline_variables:trial_types_main13,
+    timeline:[trial],
+}
+
+var gn_main14={
+    timeline_variables:trial_types_main14,
+    timeline:[trial],
+}
+
+var gn_main15={
+    timeline_variables:trial_types_main15,
+    timeline:[trial],
+}
+
+var gn_main16={
+    timeline_variables:trial_types_main16,
+    timeline:[trial],
+}
+
+var gn_main17={
+    timeline_variables:trial_types_main17,
+    timeline:[trial],
+}
+
+var gn_main18={
+    timeline_variables:trial_types_main18,
+    timeline:[trial],
+}
+
+var gn_main19={
+    timeline_variables:trial_types_main19,
+    timeline:[trial],
+}
+
+var gn_main20={
+    timeline_variables:trial_types_main20,
+    timeline:[trial],
+}
+
+var gn_main21={
+    timeline_variables:trial_types_main21,
+    timeline:[trial],
+}
+
+var gn_main22={
+    timeline_variables:trial_types_main22,
+    timeline:[trial],
+}
+
+var gn_main23={
+    timeline_variables:trial_types_main23,
+    timeline:[trial],
+}
+
+var gn_main24={
+    timeline_variables:trial_types_main24,
+    timeline:[trial],
+}
+
+var gn_main25={
+    timeline_variables:trial_types_main25,
+    timeline:[trial],
+}
+
+var gn_main26={
+    timeline_variables:trial_types_main26,
+    timeline:[trial],
+}
+
+var gn_main27={
+    timeline_variables:trial_types_main27,
+    timeline:[trial],
+}
+
+var gn_main28={
+    timeline_variables:trial_types_main28,
+    timeline:[trial],
+}
+
+var gn_main29={
+    timeline_variables:trial_types_main29,
+    timeline:[trial],
+}
+
+var gn_main30={
+    timeline_variables:trial_types_main30,
+    timeline:[trial],
+}
+
+var finish={
+        type:'html-button-response',
+        choices:['ダウンロード'],
+        stimulus:'これで課題は終わりです。お疲れ様でした。<br><br>'+
+                 'ボタンを押すと、ブラウザからcsvファイルのダウンロードが始まります。<br>'+
+                 '続けてダウンロードしたファイルをSlackにお送りください。<br><br>'+
+                 '送信先は、私がgeneralに投稿した「プレ実験協力のお願い」への返信、もしくは、中村のチャンネルへの投稿でお願いします。<br><br>',
+        post_trial_gap:1000
+    }
+
+
+
+
+
+
+jsPsych.init({timeline:[prac_ins,fixation,gn_practice,trial_ins,
+                         fixation,gn_main1,feedback1,
+                         fixation,gn_main2,feedback2,
+                         fixation,gn_main3,feedback3,
+                         fixation,gn_main4,feedback4,
+                         fixation,gn_main5,feedback5,
+                         fixation,gn_main6,feedback6,
+                         fixation,gn_main7,feedback7,
+                         fixation,gn_main8,feedback8,
+                         fixation,gn_main9,feedback9,
+                         fixation,gn_main10,feedback10,
+                         fixation,gn_main11,feedback11,
+                         fixation,gn_main12,feedback12,
+                         fixation,gn_main13,feedback13,
+                         fixation,gn_main14,feedback14,
+                         fixation,gn_main15,feedback15,
+                         fixation,gn_main16,feedback16,
+                         fixation,gn_main17,feedback17,
+                         fixation,gn_main18,feedback18,
+                         fixation,gn_main19,feedback19,
+                         fixation,gn_main20,feedback20,
+                         fixation,gn_main21,feedback21,
+                         fixation,gn_main22,feedback22,
+                         fixation,gn_main23,feedback23,
+                         fixation,gn_main24,feedback24,
+                         fixation,gn_main25,feedback25,
+                         fixation,gn_main26,feedback26,
+                         fixation,gn_main27,feedback27,
+                         fixation,gn_main28,feedback28,
+                         fixation,gn_main29,feedback29,
+                         fixation,gn_main30,feedback30,        
+                         finish],
+    on_finish: function() { 
+        jsPsych.data.addProperties(par_info);
+        jsPsych.data.get().localSave('csv','data.csv');
+    },
+    });
+</script>
+</html>

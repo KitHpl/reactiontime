@@ -103,7 +103,7 @@ var feedback4 = {
   on_start: function(trial) {
     var all_data = jsPsych.data.get().values();
     console.log(all_data);
-    if(all_data[30].correct==0||all_data[31].correct==0||all_data[32].correct==0||all_data[34].correct==0){
+    if(all_data[30].correct==0||all_data[31].correct==0||all_data[32].correct==0||all_data[33].correct==0){
                 trial.stimulus = 'ミスがありました！！！'
             }else{trial.stimulus=((((all_data[30].rt)+(all_data[31].rt)+(all_data[32].rt)+(all_data[33].rt))/2)+50)+'ミリ秒'
             };
@@ -313,7 +313,7 @@ var feedback17 = {
     console.log(all_data);
     if(all_data[108].correct==0||all_data[109].correct==0||all_data[110].correct==0||all_data[111].correct==0){
                 trial.stimulus = 'ミスがありました！！！'
-            }else{trial.stimulus=(((all_data[108].rt)+(all_data[109].rt)+(all_data[110].rt)+(all_data[107].rt))/2)+'ミリ秒'
+            }else{trial.stimulus=(((all_data[108].rt)+(all_data[109].rt)+(all_data[110].rt)+(all_data[111].rt))/2)+'ミリ秒'
             };
   }
 
